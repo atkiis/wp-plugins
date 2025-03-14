@@ -1,0 +1,1 @@
+console.log("Hello World! (from create-block-atkiis-custom-gutenberg-block block)");
