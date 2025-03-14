@@ -4,6 +4,6 @@
     "title": "atkiis Custom Gutenberg Block",
     "category": "design",
     "icon": "smiley",
-    "editorScript": "file:.build/index.js"
+    "editorScript": "file:.build/atkiis-custom-gutenberg-block/index.js"
   }
   
