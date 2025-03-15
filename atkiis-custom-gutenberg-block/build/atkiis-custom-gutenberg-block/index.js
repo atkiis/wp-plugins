@@ -8,7 +8,7 @@
   \******************************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/atkiis-custom-gutenberg-block","version":"0.1.0","title":"Atkiis Custom Gutenberg Block","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"attributes":{"content":{"type":"string","default":"Your content here...","source":"html","selector":"p"}},"supports":{"html":false},"textdomain":"atkiis-custom-gutenberg-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/atkiis-custom-gutenberg-block","version":"0.1.0","title":"Atkiis Custom Gutenberg Block","category":"widgets","icon":"smiley","description":"Example block scaffolded with Create Block tool.","example":{},"attributes":{"content":{"type":"string","default":"Your content here...","source":"html","selector":"p"}},"supports":{"html":false,"color":{"text":true,"background":true}},"textdomain":"atkiis-custom-gutenberg-block","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ }),
 
@@ -65,18 +65,31 @@ function Edit({
   attributes,
   setAttributes
 }) {
-  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)();
+  // Extract content and style attributes
+  const {
+    content,
+    style,
+    textColor,
+    backgroundColor
+  } = attributes;
 
-  // Set default content if it doesn't exist
-  const content = attributes.content || (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Atkiis Custom Gutenberg Block – hello from the editor!', 'atkiis-custom-gutenberg-block');
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+  // Get block props with text and background color styles
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
+    style: {
+      color: style?.color?.text,
+      backgroundColor: style?.color?.background
+    }
+  });
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     ...blockProps,
-    tagName: "p",
-    value: content,
-    onChange: newContent => setAttributes({
-      content: newContent
-    }),
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Enter text here...', 'atkiis-custom-gutenberg-block')
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+      tagName: "p",
+      value: content,
+      onChange: newContent => setAttributes({
+        content: newContent
+      }),
+      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Enter text here...', 'atkiis-custom-gutenberg-block')
+    })
   });
 }
 
@@ -186,8 +199,10 @@ __webpack_require__.r(__webpack_exports__);
 function save({
   attributes
 }) {
+  // Get the blockProps with all styles, including colors
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save();
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save(),
+    ...blockProps,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.RichText.Content, {
       tagName: "p",
       value: attributes.content || 'Atkiis Custom Gutenberg Block – hello from the saved content!'

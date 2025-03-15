@@ -30,21 +30,25 @@ import './editor.scss';
  * @return {Element} Element to render.
  */
 export default function Edit({ attributes, setAttributes }) {
-	const blockProps = useBlockProps();
+	// Extract content and style attributes
+	const { content, style, textColor, backgroundColor } = attributes;
 	
-	// Set default content if it doesn't exist
-	const content = attributes.content || __(
-		'Atkiis Custom Gutenberg Block – hello from the editor!',
-		'atkiis-custom-gutenberg-block'
-	);
+	// Get block props with text and background color styles
+	const blockProps = useBlockProps({
+		style: {
+			color: style?.color?.text,
+			backgroundColor: style?.color?.background,
+		},
+	});
 	
 	return (
-		<RichText
-			{ ...blockProps }
-			tagName="p"
-			value={ content }
-			onChange={ ( newContent ) => setAttributes({ content: newContent }) }
-			placeholder={ __( 'Enter text here...', 'atkiis-custom-gutenberg-block' ) }
-		/>
+		<div {...blockProps}>
+			<RichText
+				tagName="p"
+				value={content}
+				onChange={(newContent) => setAttributes({ content: newContent })}
+				placeholder={__('Enter text here...', 'atkiis-custom-gutenberg-block')}
+			/>
+		</div>
 	);
 }

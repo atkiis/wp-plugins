@@ -19,8 +19,11 @@ import { useBlockProps, RichText } from '@wordpress/block-editor';
  * @return {Element} Element to render.
  */
 export default function save({ attributes }) {
+	// Get the blockProps with all styles, including colors
+	const blockProps = useBlockProps.save();
+	
 	return (
-		<div { ...useBlockProps.save() }>
+		<div { ...blockProps }>
 			<RichText.Content
 				tagName="p"
 				value={ attributes.content || 'Atkiis Custom Gutenberg Block – hello from the saved content!' }

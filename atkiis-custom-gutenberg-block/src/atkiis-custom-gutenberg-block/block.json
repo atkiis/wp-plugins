@@ -17,7 +17,11 @@
 		}
 	},
 	"supports": {
-		"html": false
+		"html": false,
+		"color": {
+			"text": true,
+			"background": true
+		}
 	},
 	"textdomain": "atkiis-custom-gutenberg-block",
 	"editorScript": "file:./index.js",
