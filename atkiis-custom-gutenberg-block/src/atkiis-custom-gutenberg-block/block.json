@@ -8,6 +8,14 @@
 	"icon": "smiley",
 	"description": "Example block scaffolded with Create Block tool.",
 	"example": {},
+	"attributes": {
+		"content": {
+			"type": "string",
+			"default": "Your content here...",
+			"source": "html",
+			"selector": "p"
+		}
+	},
 	"supports": {
 		"html": false
 	},

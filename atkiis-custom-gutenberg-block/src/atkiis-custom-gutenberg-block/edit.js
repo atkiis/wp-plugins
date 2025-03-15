@@ -11,7 +11,7 @@ import { __ } from '@wordpress/i18n';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -29,13 +29,22 @@ import './editor.scss';
  *
  * @return {Element} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
+	const blockProps = useBlockProps();
+	
+	// Set default content if it doesn't exist
+	const content = attributes.content || __(
+		'Atkiis Custom Gutenberg Block – hello from the editor!',
+		'atkiis-custom-gutenberg-block'
+	);
+	
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'Atkiis Custom Gutenberg Block – hello from the editor!',
-				'atkiis-custom-gutenberg-block'
-			) }
-		</p>
+		<RichText
+			{ ...blockProps }
+			tagName="p"
+			value={ content }
+			onChange={ ( newContent ) => setAttributes({ content: newContent }) }
+			placeholder={ __( 'Enter text here...', 'atkiis-custom-gutenberg-block' ) }
+		/>
 	);
 }

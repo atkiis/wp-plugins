@@ -4,7 +4,7 @@
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
  */
-import { useBlockProps } from '@wordpress/block-editor';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 
 /**
  * The save function defines the way in which the different attributes should
@@ -13,12 +13,17 @@ import { useBlockProps } from '@wordpress/block-editor';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#save
  *
+ * @param {Object} props            Block props.
+ * @param {Object} props.attributes    Block attributes.
+ * @param {string} props.attributes.content The content of the block.
  * @return {Element} Element to render.
  */
-export default function save() {
+export default function save({ attributes }) {
 	return (
-		<p { ...useBlockProps.save() }>
-			{ 'Atkiis Custom Gutenberg Block – hello from the saved content!' }
-		</p>
+		<div { ...useBlockProps.save() }>
+			<RichText.Content
+				tagName="p"
+				value={ attributes.content || 'Atkiis Custom Gutenberg Block – hello from the saved content!' }
+			/>
 	);
 }
