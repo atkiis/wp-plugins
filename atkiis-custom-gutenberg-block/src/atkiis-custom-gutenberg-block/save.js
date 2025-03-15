@@ -25,5 +25,6 @@ export default function save({ attributes }) {
 				tagName="p"
 				value={ attributes.content || 'Atkiis Custom Gutenberg Block – hello from the saved content!' }
 			/>
+		</div>
 	);
 }
